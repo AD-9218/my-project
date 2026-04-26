@@ -1,0 +1,10 @@
+Name : Anandi
+Id : 101
+Salary : 4800000
+Department : C.E.
+----------------------
+Name : Princy
+Id : 102
+Salary : 4500000
+Department : C.S.E.
+----------------------

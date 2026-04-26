@@ -1,0 +1,2 @@
+Internal Student: aaa 101 Pass
+External Student: bbb 102 Fail

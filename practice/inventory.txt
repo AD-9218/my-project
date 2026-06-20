@@ -1,1 +1,4 @@
-1 note_book 23.45 4
+101  pen  10  500
+102  pencil  5  400
+103  scale  12  40
+106  erasel  5  200

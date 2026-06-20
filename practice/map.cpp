@@ -16,7 +16,7 @@ int main()
     map<string, int>::iterator iter;
     for (iter = marksMap.begin(); iter != marksMap.end(); iter++)
     {
-        cout << (*iter).first << " " << (*iter).second << "\n";
+        cout << (*iter).first << " : " << (*iter).second << "\n";
     }
 
     return 0;

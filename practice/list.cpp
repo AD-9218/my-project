@@ -33,7 +33,7 @@ int main()
     // display(list1);
 
     
-    list<int> list2(3); // Empty list of size 7
+    list<int> list2(3); // Empty list of size 3
     list<int> :: iterator iter;
     iter = list2.begin();
     *iter = 45;

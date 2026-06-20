@@ -9,13 +9,13 @@ class Employee{
 };
 
 class Fulltime:public Employee{
-    void virtual salary(){
+    void salary() override{
         cout<<"FULL TIME JOB Salary : 50000"<<endl;
     }
 };
 
 class Parttime:public Employee{
-    void virtual salary(){
+    void salary() override{
         cout<<"PART TIME JOB Salary : 20000"<<endl;
     }
 };

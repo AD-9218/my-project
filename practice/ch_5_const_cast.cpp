@@ -9,6 +9,6 @@ int main()
     int *ptr = const_cast<int *>(&num); // Removing const
     // modify(ptr);
     *ptr = 675;
-    cout << "Modified value: " << *ptr << endl; // Output: 42 (Undefined behaviorwarning!)
+    cout << "Modified value: " << *ptr << endl; // Output: 675 (Undefined behaviorwarning!)
     return 0;
 }

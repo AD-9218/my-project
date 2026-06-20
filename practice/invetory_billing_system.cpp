@@ -3,28 +3,6 @@
 #include <vector>
 using namespace std;
 
-void safeInputInt(int &x)
-{
-    cin >> x;
-    if (cin.fail())
-    {
-        cin.clear();
-        cin.ignore(1000, '\n');
-        throw invalid_argument("Invalid integer input!");
-    }
-}
-
-void safeInputFloat(float &x)
-{
-    cin >> x;
-    if (cin.fail())
-    {
-        cin.clear();
-        cin.ignore(1000, '\n');
-        throw invalid_argument("Invalid float input!");
-    }
-}
-
 class Item
 {
 protected:
@@ -36,13 +14,13 @@ public:
     virtual void input()
     {
         cout << "Enter Item ID: ";
-        safeInputInt(id);
+        cin >> id;
 
         cout << "Enter Item Name: ";
         cin >> name;
 
         cout << "Enter Item Price: ";
-        safeInputFloat(price);
+        cin >> price;
 
         if (price < 0)
             throw invalid_argument("Price cannot be negative!");
@@ -50,7 +28,7 @@ public:
 
     virtual void display()
     {
-        cout << id << " " << name << " " << price;
+        cout << id << "  " << name << "  " << price;
     }
 
     int getId() { return id; }
@@ -68,16 +46,16 @@ public:
     void input() override
     {
         cout << "Enter Item ID: ";
-        safeInputInt(id);
+        cin >> id;
 
         cout << "Enter Item Name: ";
         cin >> name;
 
         cout << "Enter Item Price: ";
-        safeInputFloat(price);
+        cin >> price;
 
         cout << "Enter Quantity: ";
-        safeInputInt(quantity);
+        cin >> quantity;
 
         if (price < 0 || quantity < 0)
             throw invalid_argument("Price/Quantity cannot be negative!");
@@ -85,7 +63,7 @@ public:
 
     void display() override
     {
-        cout << id << " " << name << " " << price << " " << quantity << endl;
+        cout << id << "  " << name << "  " << price << "  " << quantity << endl;
     }
 
     int getQty() { return quantity; }
@@ -113,7 +91,7 @@ void loadData()
     ifstream file("inventory.txt");
 
     if (!file)
-        throw runtime_error("inventory.txt file not found!");
+        return;
 
     int id, qty;
     string name;
@@ -133,15 +111,12 @@ void saveData()
 {
     ofstream file("inventory.txt");
 
-    if (!file)
-        throw runtime_error("Error writing to file!");
-
     for (auto p : inventory)
     {
         Product *pr = dynamic_cast<Product *>(p);
-        file << pr->getId() << " "
-             << pr->getName() << " "
-             << pr->getPrice() << " "
+        file << pr->getId() << "  "
+             << pr->getName() << "  "
+             << pr->getPrice() << "  "
              << pr->getQty() << endl;
     }
 
@@ -164,7 +139,7 @@ void addProduct()
 void viewInventory()
 {
     cout << "\nAvailable Products:\n";
-    cout << "ID Name Price Qty\n";
+    cout << "ID   Name   Price   Qty\n";
 
     for (auto p : inventory)
     {
@@ -176,7 +151,7 @@ void searchProduct()
 {
     int id;
     cout << "\nEnter ID to search: ";
-    safeInputInt(id);
+    cin >> id;
 
     for (auto p : inventory)
     {
@@ -202,10 +177,10 @@ void billing()
     do
     {
         cout << "Enter Product ID: ";
-        safeInputInt(id);
+        cin >> id;
 
         cout << "Enter Quantity: ";
-        safeInputInt(qty);
+        cin >> qty;
 
         if (qty <= 0)
             throw invalid_argument("Quantity must be positive!");
@@ -225,7 +200,7 @@ void billing()
 
                 total += cost;
 
-                cout << "Added: " << pr->getName()
+                cout << "Product Name: " << pr->getName()
                      << " Cost: " << cost << endl;
             }
         }
@@ -250,31 +225,25 @@ void billing()
 
 int main()
 {
-    system("chcp 65001");
-
-    try
-    {
-        loadData();
-    }
-    catch (exception &e)
-    {
-        cout << "Warning: " << e.what() << endl;
-    }
+    system("chcp 65001"); // for emoji
+    loadData();
 
     int choice;
 
-    cout << "Welcome to our Stationary Shop\n";
+    cout << "**************************************" << endl;
+    cout << "  Welcome to our Stationary Shop  \n";
+    cout << "**************************************" << endl;
 
     do
     {
         try
         {
-            cout << "\n--------------------------------";
+            cout << "--------------------------------\n";
             cout << "\n1. Add Product\n2. View Products\n3. Search Product\n4. Billing\n5. Exit\n";
             cout << "--------------------------------\n";
 
             cout << "Enter your choice: ";
-            safeInputInt(choice);
+            cin >> choice;
 
             switch (choice)
             {
@@ -293,7 +262,7 @@ int main()
             case 5:
                 break;
             default:
-                throw invalid_argument("Invalid menu choice!");
+                cout << "Invalid choice!\n";
             }
         }
         catch (exception &e)
@@ -306,7 +275,9 @@ int main()
     for (auto p : inventory)
         delete p;
 
-    cout << "\nThank you! Visit Again 😊\n";
+    cout << "**************************************" << endl;
+    cout << "    Thank you! Visit Again 😊\n";
+    cout << "**************************************" << endl;
 
     return 0;
 }
